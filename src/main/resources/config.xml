@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+     http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+    http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+    http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <import resource="aop-config.xml"/>
+    <import resource="database-config.xml"/>
+    <!--<import resource="web-config.xml"/>-->
+
+
+    <!--<mvc:annotation-driven/>-->
+
+
+    <!--<context:component-scan base-package="com.epam.springapp.mvc.WelcomeController"/>-->
+    <!--<context:component-scan base-package="com.epam.springapp.mvc.TicketsController"/>-->
+
+    <!--<bean class="com.epam.springapp.annotation.AddInitialAppUsersAnnotationBeanPostProcessor"/>-->
+
+    <bean name="userService" class="com.epam.springapp.user.UserServiceManagerImpl">
+        <property name="appLoger">
+            <ref bean="logging"/>
+        </property>
+    </bean>
+
+    <bean name="eventService" class="com.epam.springapp.event.EventServiceManagerImpl">
+        <property name="auditoriumService">
+            <ref bean="auditorium"/>
+        </property>
+        <property name="appLoger">
+            <ref bean="logging"/>
+        </property>
+    </bean>
+
+    <bean name="bookingService" class="com.epam.springapp.booking.BookingServiceManagerImpl">
+        <property name="value" value="${vipSeats.price}"/>
+        <property name="appLog">
+            <ref bean="logging"/>
+        </property>
+    </bean>
+
+    <bean name="auditorium" class="com.epam.springapp.auditorium.AuditoriumServiceImpl">
+        <property name="auditoriumList" value="${auditorium.list}"/>
+        <property name="appLog">
+            <ref bean="logging"/>
+        </property>
+    </bean>
+
+    <bean name="logging" class="com.epam.springapp.apploger.AppLog"
+          init-method="init" >
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>classpath:auditorium.properties</value>
+            </list>
+        </property>
+        <property name="ignoreResourceNotFound" value="true"/>
+    </bean>
+
+</beans>
+
+        <!--xsi:schemaLocation="http://www.springframework.org/schema/beans-->
+        <!--http://www.springframework.org/schema/beans/spring-beans-3.0.xsd-->
+        <!--http://www.springframework.org/schema/beans-->
+        <!--http://www.springframework.org/schema/util">-->

@@ -1,0 +1,98 @@
+<web-app id="WebApp_ID" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <display-name>Spring Web MVC Application</display-name>
+
+    <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>
+            com.epam.springapp.mvc.WelcomeConroller
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>*.htm</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+         <!--xmlns="http://java.sun.com/xml/ns/javaee"-->
+         <!--xsi:schemaLocation="http://java.sun.com/xml/ns/javaee-->
+         <!--http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"-->
+         <!--id="WebApp_ID" version="3.0">-->
+    <!--<display-name>Spring MVC</display-name>-->
+
+
+    <!--<servlet>-->
+        <!--<servlet-name>dispatcher</servlet-name>-->
+        <!--<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>-->
+        <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+            <!--&lt;!&ndash;<param-name>contextConfigLocation</param-name>&ndash;&gt;-->
+            <!--&lt;!&ndash;<param-value>/WEB-INF/web-config.xml</param-value>&ndash;&gt;-->
+        <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
+        <!--&lt;!&ndash;<load-on-startup>1</load-on-startup>&ndash;&gt;-->
+    <!--</servlet>-->
+    <!--<servlet-mapping>-->
+        <!--<servlet-name>dispatcher</servlet-name>-->
+        <!--<url-pattern>/app/*</url-pattern>-->
+    <!--</servlet-mapping>-->
+
+
+    <!--<listener>-->
+        <!--<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>-->
+    <!--</listener>-->
+    <!--<context-param>-->
+        <!--<param-name>contextConfigLocation</param-name>-->
+        <!--<param-value>/WEB-INF/application-context.xml</param-value>-->
+    <!--</context-param>-->
+
+    <!--&lt;!&ndash; This is the root application context for whole web application. &ndash;&gt;-->
+    <!--&lt;!&ndash;<context-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-name>contextConfigLocation</param-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-value>/WEB-INF/rootApplicationContext.xml</param-value>&ndash;&gt;-->
+    <!--&lt;!&ndash;</context-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<listener>&ndash;&gt;-->
+    <!--&lt;!&ndash;<listener-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;org.springframework.web.context.ContextLoaderListener&ndash;&gt;-->
+    <!--&lt;!&ndash;</listener-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;</listener>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-name>webmvc1</servlet-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;org.springframework.web.servlet.DispatcherServlet&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; We require this configuration when we want to change the default name / location of the servlet specific configuration files &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-name>contextConfigLocation</param-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-value>/WEB-INF/mvc1-servlet.xml</param-value>&ndash;&gt;-->
+    <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<load-on-startup>1</load-on-startup>&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-name>webmvc2</servlet-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;org.springframework.web.servlet.DispatcherServlet&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet-class>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash; We require this configuration when we want to change the default name / location of the servlet specific configuration files &ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;<init-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-name>contextConfigLocation</param-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<param-value>/WEB-INF/mvc2-servlet.xml</param-value>&ndash;&gt;-->
+    <!--&lt;!&ndash;</init-param>&ndash;&gt;-->
+    <!--&lt;!&ndash;<load-on-startup>1</load-on-startup>&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-mapping>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-name>webmvc1</servlet-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<url-pattern>/webmvc1</url-pattern>&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet-mapping>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-mapping>&ndash;&gt;-->
+    <!--&lt;!&ndash;<servlet-name>webmvc2</servlet-name>&ndash;&gt;-->
+    <!--&lt;!&ndash;<url-pattern>/webmvc2</url-pattern>&ndash;&gt;-->
+    <!--&lt;!&ndash;</servlet-mapping>&ndash;&gt;-->
+<!--</web-app>-->

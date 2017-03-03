@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="auditorium" class="com.epam.springapp.dataModel.Auditorium">
+        <property name="Auditorium">
+            <list>
+                <list>
+                    <!--auditorium name-->
+                    <value>101</value>
+                    <!--number of places-->
+                    <value>100</value>
+                    <!--vip places-->
+                    <value>20</value>
+                </list>
+                <list>
+                    <value>102</value>
+                    <value>50</value>
+                    <value>20</value>
+                </list>
+                <list>
+                    <value>103</value>
+                    <value>50</value>
+                    <value>20</value>
+                </list>
+                <list>
+                    <value>104</value>
+                    <value>40</value>
+                    <value>10</value>
+                </list>
+            </list>
+        </property>
+    </bean>
+</beans>
