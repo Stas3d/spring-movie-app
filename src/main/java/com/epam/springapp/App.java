@@ -49,6 +49,7 @@ public class App {
         addInitialProdUsersToApplication();
         addInitialProdEventsToApplication();
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("config.xml");
+
         // DataBaseHepler.initDataBase(applicationContext);
 
         UserServiceManager userService = applicationContext.getBean("userService", UserServiceManagerImpl.class);
