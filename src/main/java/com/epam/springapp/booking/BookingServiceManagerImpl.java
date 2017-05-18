@@ -6,6 +6,8 @@ import com.epam.springapp.discount.DiscountService;
 import com.epam.springapp.discount.DiscountServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     private static final String OBJECT_LINE = "                                                ***                   \n";
 
     @Getter
-    private static List<Ticket> tickets = new ArrayList<>();
+    private static List<Ticket> ticketList = new ArrayList<>();
 
     @Setter
     private AppLog appLog;
@@ -56,7 +58,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     public Ticket bookTicket(final User user, final Event event) {
 //        int result = jdbcOperations.update("INSERT into TICKETDATA(USER,EVENT) VALUES (?,?)", user.toString(), event.toString());
         final Ticket ticket = new Ticket(user, event);
-        tickets.add(ticket);
+        ticketList.add(ticket);
         return ticket;
     }
 
@@ -64,7 +66,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
      * The Event allready contains information about the data
      */
     public List<Ticket> getTicketsForEvent(final Event event, final Date date) {
-        return tickets
+        return ticketList
                 .stream()
                 .filter(item ->
                         item.getEvent().getName().equals(event.getName()))
@@ -72,12 +74,12 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     }
 
     public List<Ticket> getAllTickets(){
-        return tickets;
+        return ticketList;
     }
 
     public void printAllTickets() {
         appLog.logEvent(STRING_LINE + TICKETS_STRING_LINE);
-        tickets.stream().forEach(ticket -> {
+        ticketList.stream().forEach(ticket -> {
             appLog.logEvent(ticket.toString());
             appLog.logEvent(OBJECT_LINE);
         });

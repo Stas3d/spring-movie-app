@@ -44,7 +44,7 @@ public class Ticket {
 
     private int generateRandomNumber() {
         final int i = new Random().nextInt(100_000);
-        boolean existingValue = BookingServiceManagerImpl.getTickets()
+        boolean existingValue = BookingServiceManagerImpl.getTicketList()
                 .stream()
                 .anyMatch(t ->
                         t.getTicketId() == i);
