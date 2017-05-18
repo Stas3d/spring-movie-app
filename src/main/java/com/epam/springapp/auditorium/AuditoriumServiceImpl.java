@@ -24,7 +24,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     private AppLog appLog;
 
     @Setter
-    private String auditoriumList;
+    private String auditoriums;
 
     @Autowired
     private AppLog appLoger;
@@ -37,8 +37,8 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     }
 
     public List<String> getVipSeats(final Auditorium auditorium) {
-        List<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(auditoriumList).split(",")));
-        appLoger.logEvent(auditoriumList);
+        List<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(auditoriums).split(",")));
+        appLoger.logEvent(auditoriums);
         return null;
     }
 
@@ -57,8 +57,8 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     }
 
     private void checkIfAuditoriumIsValid(final Auditorium auditorium) {
-//        List<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(auditoriumList).split(",")));
-        Arrays.asList(String.valueOf(auditoriumList).split(","))
+//        List<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(auditoriums).split(",")));
+        Arrays.asList(String.valueOf(auditoriums).split(","))
                 .stream()
                 .filter( item ->
                         item.equals(auditorium.toString()))

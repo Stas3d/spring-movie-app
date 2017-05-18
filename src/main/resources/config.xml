@@ -48,7 +48,7 @@
     </bean>
 
     <bean name="auditorium" class="com.epam.springapp.auditorium.AuditoriumServiceImpl">
-        <property name="auditoriumList" value="${auditorium.list}"/>
+        <property name="auditoriums" value="${auditorium.list}"/>
         <property name="appLog">
             <ref bean="logging"/>
         </property>
