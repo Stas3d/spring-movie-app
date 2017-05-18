@@ -1,9 +1,5 @@
 package com.epam.springapp.aspect;
 
-/**
- * @author Stanislav_Kryzhanovs
- */
-
 import com.epam.springapp.apploger.AppLog;
 import com.epam.springapp.dataModel.User;
 import lombok.Setter;
@@ -50,7 +46,6 @@ public class CounterAspect {
     public void showInvocationsNumberForEachEvent() {
         invocationsForEachEvent
                 .keySet()
-                .stream()
                 .forEach(key ->
                         appLoger.logEvent(String.format(INVOCATIONS_FOR_EVENT, key, invocationsForEachEvent.get(key))));
     }
@@ -59,13 +54,6 @@ public class CounterAspect {
     public void countNumberOfTimesBookTicketCalled() {
         countBookTicketMethodCalled++;
     }
-
-
-    // Before - Advice
-    // execution - pointcut
-    // * com.epam - joinpoint
-    // code = aspect!
-
 
     public int getCountBookTicketMethodCalled() {
         appLoger.logEvent(String.format(BOOK_TICKET_WAS_NUMBER_TIMES, countBookTicketMethodCalled));
@@ -88,7 +76,6 @@ public class CounterAspect {
     public void showBookTicketCountForAllUsers() {
         ticketsNumberForEachUser
                 .keySet()
-                .stream()
                 .forEach(key ->
                         appLoger.logEvent(String.format(NUMBER_OF_BOOKED_TICKETS, key, ticketsNumberForEachUser.get(key))));
     }

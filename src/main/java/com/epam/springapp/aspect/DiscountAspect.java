@@ -1,9 +1,5 @@
 package com.epam.springapp.aspect;
 
-/**
- * @author Stanislav_Kryzhanovs
- */
-
 import com.epam.springapp.apploger.AppLog;
 import com.epam.springapp.dataModel.User;
 import lombok.Setter;
@@ -55,7 +51,6 @@ public class DiscountAspect {
     public int getBirthdayDiscountStrategyCount() {
         birthdayDiscountInvocations
                 .keySet()
-                .stream()
                 .forEach(key ->
                         String.format(INVOCATIONS_FOR_BIRTHDAY_DISCOUNT, key, birthdayDiscountInvocations.get(key)));
         appLoger.logEvent(String.format(BIRTHDAY_DISCOUNT_STRATEGY_LOGIC_COUNT, totalBirthdayDiscountCount));
@@ -79,7 +74,6 @@ public class DiscountAspect {
     public int getEvery10thTicketStrategyCount() {
         every10thTicketInvocations
                 .keySet()
-                .stream()
                 .forEach(key ->
                         String.format(INVOCATIONS_FOR_10TH_TICKET_DISCOUNT, key, every10thTicketInvocations.get(key)));
         appLoger.logEvent(String.format(TICKET_DISCOUNT_STRATEGY_LOGIC_COUNT, countEvery10thTicketDiscountCount));
