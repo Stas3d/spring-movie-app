@@ -5,7 +5,6 @@ import com.epam.springapp.dataModel.Ticket;
 import com.epam.springapp.dataModel.User;
 import com.epam.springapp.exception.NoUserException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +34,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
     @Getter
     @Setter
 //    @InjectInitialAppUsers
-    private static List<User> userList = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
 
     @Getter
     @Setter
@@ -48,8 +47,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //    @Autowired
 //    private JdbcOperations jdbcOperations;
 
-    // public static void setUserList(final List<User> userList) {
-    // UserServiceManagerImpl.userList = userList;
+    // public static void setUsers(final List<User> users) {
+    // UserServiceManagerImpl.users = users;
     // }
 
     // public void setTestUsers(final List testUsers) {
@@ -65,7 +64,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
     // }
 
     public List<User> findAllUsers() {
-        return userList;
+        return users;
     }
 
 
@@ -75,7 +74,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
                              final String userMail,
                              final String birthDate) {
         if (checkIfMailValid(userMail) && !checkIfUserExists(userMail)) {
-            final boolean isExistingUser = userList
+            final boolean isExistingUser = users
                     .stream()
                     .anyMatch(user 
                             -> (userId == user.getUserId()));
@@ -84,7 +83,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
                 return;
             }
             final User newUser = new User(userId, userName, userMail, birthDate);
-            userList.add(newUser);
+            users.add(newUser);
                 // int result = jdbcOperations.update("INSERT into USER(USERNAME,ID,USERMAIL,BIRTHDATE) VALUES (?,?,?,?)", userName, userId, userMail, birthDate);
 //            }
         }
@@ -93,15 +92,15 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
 //    public void registerUser(String userName, long userId, String userMail, String birthDate) {
 //        if (checkIfMailValid(userMail) && !checkIfUserExists(userMail)) {
-//            if (userList != null) {
-//                for (User user : userList) {
+//            if (users != null) {
+//                for (User user : users) {
 //                    if (userId == user.getUserId()) {
 //                        appLoger.logEvent(String.format(EXISTING_USER, user));
 //                        return;
 //                    }
 //                }
 //                User newUser = new User(userId, userName, userMail, birthDate);
-//                userList.add(newUser);
+//                users.add(newUser);
 //                // int result = jdbcOperations.update("INSERT into USER(USERNAME,ID,USERMAIL,BIRTHDATE) VALUES
 //                // (?,?,?,?)",
 //                // userName, userId, userMail, birthDate);
@@ -111,11 +110,11 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //    }
 
 //    public void removeUser(final long userId) {
-//        if (userList != null) {
+//        if (users != null) {
 //            // jdbcOperations.update("DELETE FROM USER WHERE id =?", userId);
-//            for (User user : userList) {
+//            for (User user : users) {
 //                if (userId == user.getUserId()) {
-//                    userList.remove(user);
+//                    users.remove(user);
 //                    appLoger.logEvent(String.format(USER_WAS_REMOVED, user));
 //                    return;
 //                }
@@ -125,20 +124,20 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
     // TODO make this boolean
     public void removeUser(final long userId) {
-        if (userList != null) {
+        if (users != null) {
             // jdbcOperations.update("DELETE FROM USER WHERE id =?", userId);
-            final User userToBeDeleted = userList.stream()
+            final User userToBeDeleted = users.stream()
                     .filter(user -> userId == user.getUserId())
                     .findFirst()
                     .get();
-            userList.remove(userToBeDeleted);
+            users.remove(userToBeDeleted);
             appLoger.logEvent(String.format(USER_WAS_REMOVED, userToBeDeleted));
         }
     }
 
     public User getUserById(final long userId) {
-        if (userList != null)
-            return userList.stream()
+        if (users != null)
+            return users.stream()
                     .filter(user -> userId == user.getUserId())
                     .findFirst()
                     .orElseThrow(
@@ -148,8 +147,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
 //    public User getUserByEmail(String mail) {
-//        if ((userList != null) && (mail != null)) {
-//            for (User user : userList) {
+//        if ((users != null) && (mail != null)) {
+//            for (User user : users) {
 //                if (mail.equals(user.getUserMail())) {
 //                    return user;
 //                }
@@ -159,8 +158,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //    }
 
     public User getUserByEmail(final String mail) {
-        if ((userList != null) && (mail != null))
-            return userList.stream()
+        if ((users != null) && (mail != null))
+            return users.stream()
                     .filter(m -> mail.equals(m.getUserMail()))
                     .findFirst()
                     .orElseThrow(
@@ -171,8 +170,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public User getUserByName(final String name) {
-        if ((userList != null) && (name != null))
-            return userList.stream()
+        if ((users != null) && (name != null))
+            return users.stream()
                     .filter(user -> name.equals(user.getUserName()))
                     .findFirst()
                     .orElseThrow(
@@ -183,8 +182,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
 //    public User getUserByName(final String name) {
-//        if ((userList != null) && (name != null)) {
-//            for (User user : userList) {
+//        if ((users != null) && (name != null)) {
+//            for (User user : users) {
 //                if (name.equals(user.getUserName())) {
 //                    return user;
 //                }
@@ -201,7 +200,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
 //    public List<Ticket> getBookedTickets(final User user) {
 //        List<Ticket> reservedTicketListCart = new ArrayList<>();
-//        if (userList != null && tickets != null) {
+//        if (users != null && tickets != null) {
 //            for (Ticket ticket : tickets) {
 //                if (user.getUserId() == ticket.getUser().getUserId()) {
 //                    reservedTicketListCart.add(ticket);
@@ -213,7 +212,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
     @Deprecated
     public void showAllUsers() {
-        userList.forEach(user -> appLoger.logEvent(user.toString()));
+        users.forEach(user -> appLoger.logEvent(user.toString()));
         appLoger.logEvent("\n");
     }
 
@@ -223,17 +222,17 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public boolean checkIfUserExists(final String name) {
-//        return userList.stream()
+//        return users.stream()
 //                .anyMatch(user -> userMail.equals(user.getUserMail()));
-        return userList.stream()
+        return users.stream()
                 .anyMatch(user -> name.equals(user.getUserName()));
     }
 
     /**
-     * This method adds default Production userList to List<User> from usersData.xml {@see usersData.xml} <br>
+     * This method adds default Production users to List<User> from usersData.xml {@see usersData.xml} <br>
      */
     public void addInitialUsers() {
-        testUsers.forEach(userDataRow -> userList.add(new User( //
+        testUsers.forEach(userDataRow -> users.add(new User( //
                 Integer.parseInt(userDataRow.get(0)), //
                 userDataRow.get(1), //
                 userDataRow.get(2), //
