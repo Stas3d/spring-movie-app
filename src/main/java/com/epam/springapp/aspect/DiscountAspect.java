@@ -29,7 +29,7 @@ public class DiscountAspect {
 
     @Autowired
     @Setter
-    private AppLog appLoger;
+    private AppLog appLogger;
 
     @Autowired
     private JdbcOperations jdbcOperations;
@@ -53,7 +53,7 @@ public class DiscountAspect {
                 .keySet()
                 .forEach(key ->
                         String.format(INVOCATIONS_FOR_BIRTHDAY_DISCOUNT, key, birthdayDiscountInvocations.get(key)));
-        appLoger.logEvent(String.format(BIRTHDAY_DISCOUNT_STRATEGY_LOGIC_COUNT, totalBirthdayDiscountCount));
+        appLogger.logEvent(String.format(BIRTHDAY_DISCOUNT_STRATEGY_LOGIC_COUNT, totalBirthdayDiscountCount));
         return totalBirthdayDiscountCount;
     }
 
@@ -76,7 +76,7 @@ public class DiscountAspect {
                 .keySet()
                 .forEach(key ->
                         String.format(INVOCATIONS_FOR_10TH_TICKET_DISCOUNT, key, every10thTicketInvocations.get(key)));
-        appLoger.logEvent(String.format(TICKET_DISCOUNT_STRATEGY_LOGIC_COUNT, countEvery10thTicketDiscountCount));
+        appLogger.logEvent(String.format(TICKET_DISCOUNT_STRATEGY_LOGIC_COUNT, countEvery10thTicketDiscountCount));
         return countEvery10thTicketDiscountCount;
     }
 }

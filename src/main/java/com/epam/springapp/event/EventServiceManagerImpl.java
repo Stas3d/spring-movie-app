@@ -6,7 +6,6 @@ import com.epam.springapp.dataModel.*;
 import com.epam.springapp.exception.NoEventException;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -30,7 +29,7 @@ public class EventServiceManagerImpl implements EventServiceManager {
 
     @Autowired
     @Setter
-    private AppLog appLoger;
+    private AppLog appLogger;
 
     @Autowired
     @Setter
@@ -46,7 +45,7 @@ public class EventServiceManagerImpl implements EventServiceManager {
                     .anyMatch(e
                             -> name.equals(e.getName()));
             if (isEventExists) {
-                appLoger.logEvent(String.format(ALREADY_EXISTING_USER, name));
+                appLogger.logEvent(String.format(ALREADY_EXISTING_USER, name));
                 return;
             }
             final Event event = new Event(name, date, price, rating);
@@ -64,7 +63,7 @@ public class EventServiceManagerImpl implements EventServiceManager {
                 .findFirst()
                 .orElseThrow(() -> new NoEventException());
         events.remove(event);
-        appLoger.logEvent(String.format(EVENT_REMOVED, event));
+        appLogger.logEvent(String.format(EVENT_REMOVED, event));
         return true;
     }
 
@@ -78,7 +77,7 @@ public class EventServiceManagerImpl implements EventServiceManager {
 //                    .findFirst()
 //                    .get();
 //            events.remove(event);
-//            appLoger.logEvent(String.format(EVENT_REMOVED, event));
+//            appLogger.logEvent(String.format(EVENT_REMOVED, event));
 //        }
 //    }
 
@@ -104,8 +103,8 @@ public class EventServiceManagerImpl implements EventServiceManager {
     @Deprecated
     public void printAllEvents() {
         events.forEach(event ->
-                appLoger.logEvent(event.toString()));
-        appLoger.logEvent("\n");
+                appLogger.logEvent(event.toString()));
+        appLogger.logEvent("\n");
     }
 
     /**

@@ -21,13 +21,11 @@ public class AuditoriumServiceImpl implements AuditoriumService {
     private List<EventRoomDataModel> eventRoomDataModelList = new ArrayList<>();
 
     @Setter
-    private AppLog appLog;
-
-    @Setter
     private String auditoriums;
 
     @Autowired
-    private AppLog appLoger;
+    @Setter
+    private AppLog appLogger;
 
     public List<String> getAuditoriums() {
         return null;
@@ -38,7 +36,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
 
     public List<String> getVipSeats(final Auditorium auditorium) {
         List<String> myList = new ArrayList<>(Arrays.asList(String.valueOf(auditoriums).split(",")));
-        appLoger.logEvent(auditoriums);
+        appLogger.logEvent(auditoriums);
         return null;
     }
 
@@ -49,7 +47,7 @@ public class AuditoriumServiceImpl implements AuditoriumService {
                         (event.toString().equals(it.getEvent().toString())
                                 && auditorium.toString().equals(it.getAuditorium().toString())));
         if (isBusy) {
-            appLog.logEvent(String.format(CANT_ASSIGN_AUDITORIUM_FOR_EVENT, event.toString()));
+            appLogger.logEvent(String.format(CANT_ASSIGN_AUDITORIUM_FOR_EVENT, event.toString()));
             return true; // TODO return FALSE ????
         }
         eventRoomDataModelList.add(new EventRoomDataModel(event, auditorium));

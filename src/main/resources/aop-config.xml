@@ -11,12 +11,12 @@
     <aop:aspectj-autoproxy/>
     <aop:config proxy-target-class="true"/>
     <bean name="aspectBean" class="com.epam.springapp.aspect.CounterAspect">
-        <property name="appLoger">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>
     <bean name="discountBean" class="com.epam.springapp.aspect.DiscountAspect">
-        <property name="appLoger">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>

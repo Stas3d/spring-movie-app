@@ -6,8 +6,6 @@ import com.epam.springapp.discount.DiscountService;
 import com.epam.springapp.discount.DiscountServiceImpl;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,20 +21,16 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     private static final String OBJECT_LINE = "                                                ***                   \n";
 
     @Getter
-    private static List<Ticket> ticketList = new ArrayList<>();
+    private static List<Ticket> tickets = new ArrayList<>();
 
     @Setter
-    private AppLog appLog;
+    private AppLog appLogger;
 
     @Setter
     private long value;
 
 //    @Autowired
 //    private JdbcOperations jdbcOperations;
-
-//    public void setappLog(AppLog appLog) {
-//        this.appLog = appLog;
-//    }
 
     public long getTicketPrice(final String eventName, final String date, final String time, final Seats seats, final User user) {
         return 0;
@@ -58,7 +52,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     public Ticket bookTicket(final User user, final Event event) {
 //        int result = jdbcOperations.update("INSERT into TICKETDATA(USER,EVENT) VALUES (?,?)", user.toString(), event.toString());
         final Ticket ticket = new Ticket(user, event);
-        ticketList.add(ticket);
+        tickets.add(ticket);
         return ticket;
     }
 
@@ -66,7 +60,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
      * The Event allready contains information about the data
      */
     public List<Ticket> getTicketsForEvent(final Event event, final Date date) {
-        return ticketList
+        return tickets
                 .stream()
                 .filter(item ->
                         item.getEvent().getName().equals(event.getName()))
@@ -74,14 +68,14 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     }
 
     public List<Ticket> getAllTickets(){
-        return ticketList;
+        return tickets;
     }
 
     public void printAllTickets() {
-        appLog.logEvent(STRING_LINE + TICKETS_STRING_LINE);
-        ticketList.stream().forEach(ticket -> {
-            appLog.logEvent(ticket.toString());
-            appLog.logEvent(OBJECT_LINE);
+        appLogger.logEvent(STRING_LINE + TICKETS_STRING_LINE);
+        tickets.stream().forEach(ticket -> {
+            appLogger.logEvent(ticket.toString());
+            appLogger.logEvent(OBJECT_LINE);
         });
     }
 }

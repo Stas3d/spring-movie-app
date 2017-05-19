@@ -26,14 +26,14 @@ public class CounterAspect {
 
     @Autowired
     @Setter
-    private AppLog appLoger;
+    private AppLog appLogger;
 
     @Autowired
     private JdbcOperations jdbcOperations;
 
     @AfterReturning(pointcut = "execution(* com.epam.springapp.event.EventServiceManager.getEventByName(..))",
             returning = "returnedEvent")
-    public void countInvocationsNumberForEvent(final Object returnedEvent) {
+    public void countEventInvocationNumber(final Object returnedEvent) {
         final String event = returnedEvent.toString();
         if (!invocationsForEachEvent.containsKey(event)) {
             invocationsForEachEvent.put(event, 0);
@@ -43,11 +43,11 @@ public class CounterAspect {
 //                event, (invocationsForEachEvent.get(event) + 1));
     }
 
-    public void showInvocationsNumberForEachEvent() {
+    public void showEventInvocationNumber() {
         invocationsForEachEvent
                 .keySet()
                 .forEach(key ->
-                        appLoger.logEvent(String.format(INVOCATIONS_FOR_EVENT, key, invocationsForEachEvent.get(key))));
+                        appLogger.logEvent(String.format(INVOCATIONS_FOR_EVENT, key, invocationsForEachEvent.get(key))));
     }
 
     @Before("execution(* com.epam.springapp.booking.BookingServiceManager.bookTicket(..))")
@@ -56,7 +56,7 @@ public class CounterAspect {
     }
 
     public int getCountBookTicketMethodCalled() {
-        appLoger.logEvent(String.format(BOOK_TICKET_WAS_NUMBER_TIMES, countBookTicketMethodCalled));
+        appLogger.logEvent(String.format(BOOK_TICKET_WAS_NUMBER_TIMES, countBookTicketMethodCalled));
         return countBookTicketMethodCalled;
     }
 
@@ -77,6 +77,6 @@ public class CounterAspect {
         ticketsNumberForEachUser
                 .keySet()
                 .forEach(key ->
-                        appLoger.logEvent(String.format(NUMBER_OF_BOOKED_TICKETS, key, ticketsNumberForEachUser.get(key))));
+                        appLogger.logEvent(String.format(NUMBER_OF_BOOKED_TICKETS, key, ticketsNumberForEachUser.get(key))));
     }
 }

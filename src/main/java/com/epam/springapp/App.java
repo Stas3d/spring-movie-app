@@ -86,7 +86,7 @@ public class App {
 
     private static void discountAndCountActivities(final ApplicationContext applicationContext) {
         final CounterAspect counterAspect = applicationContext.getBean("aspectBean", CounterAspect.class);
-        counterAspect.showInvocationsNumberForEachEvent();
+        counterAspect.showEventInvocationNumber();
         counterAspect.getCountBookTicketMethodCalled();
         counterAspect.showBookTicketCountForAllUsers();
 

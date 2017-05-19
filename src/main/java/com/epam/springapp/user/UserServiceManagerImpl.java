@@ -5,7 +5,6 @@ import com.epam.springapp.dataModel.Ticket;
 import com.epam.springapp.dataModel.User;
 import com.epam.springapp.exception.NoUserException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Service;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,7 +42,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
     @Autowired
     @Setter
-    private AppLog appLoger;
+    private AppLog appLogger;
 
 //    @Autowired
 //    private JdbcOperations jdbcOperations;
@@ -80,7 +79,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
                     .anyMatch(user 
                             -> (userId == user.getUserId()));
             if (isExistingUser) {
-                appLoger.logEvent(String.format(EXISTING_USER, userId));
+                appLogger.logEvent(String.format(EXISTING_USER, userId));
                 return;
             }
             final User newUser = new User(userId, userName, userMail, birthDate);
@@ -88,7 +87,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
                 // int result = jdbcOperations.update("INSERT into USER(USERNAME,ID,USERMAIL,BIRTHDATE) VALUES (?,?,?,?)", userName, userId, userMail, birthDate);
 //            }
         }
-        appLoger.logEvent(String.format(WRONG_MAIL, userMail));
+        appLogger.logEvent(String.format(WRONG_MAIL, userMail));
     }
 
 //    public void registerUser(String userName, long userId, String userMail, String birthDate) {
@@ -96,7 +95,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //            if (userList != null) {
 //                for (User user : userList) {
 //                    if (userId == user.getUserId()) {
-//                        appLoger.logEvent(String.format(EXISTING_USER, user));
+//                        appLogger.logEvent(String.format(EXISTING_USER, user));
 //                        return;
 //                    }
 //                }
@@ -107,7 +106,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //                // userName, userId, userMail, birthDate);
 //            }
 //        }
-//        appLoger.logEvent(String.format(WRONG_MAIL, userMail));
+//        appLogger.logEvent(String.format(WRONG_MAIL, userMail));
 //    }
 
 //    public void removeUser(final long userId) {
@@ -116,7 +115,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //            for (User user : userList) {
 //                if (userId == user.getUserId()) {
 //                    userList.remove(user);
-//                    appLoger.logEvent(String.format(USER_WAS_REMOVED, user));
+//                    appLogger.logEvent(String.format(USER_WAS_REMOVED, user));
 //                    return;
 //                }
 //            }
@@ -132,7 +131,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
                     .findFirst()
                     .get();
             userList.remove(userToBeDeleted);
-            appLoger.logEvent(String.format(USER_WAS_REMOVED, userToBeDeleted));
+            appLogger.logEvent(String.format(USER_WAS_REMOVED, userToBeDeleted));
         }
     }
 
@@ -213,8 +212,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
     @Deprecated
     public void showAllUsers() {
-        userList.forEach(user -> appLoger.logEvent(user.toString()));
-        appLoger.logEvent("\n");
+        userList.forEach(user -> appLogger.logEvent(user.toString()));
+        appLogger.logEvent("\n");
     }
 
     public boolean checkIfMailValid(final String email) {

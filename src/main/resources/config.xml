@@ -26,7 +26,7 @@
     <!--<bean class="com.epam.springapp.annotation.AddInitialAppUsersAnnotationBeanPostProcessor"/>-->
 
     <bean name="userService" class="com.epam.springapp.user.UserServiceManagerImpl">
-        <property name="appLoger">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>
@@ -35,21 +35,21 @@
         <property name="auditoriumService">
             <ref bean="auditorium"/>
         </property>
-        <property name="appLoger">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>
 
     <bean name="bookingService" class="com.epam.springapp.booking.BookingServiceManagerImpl">
         <property name="value" value="${vipSeats.price}"/>
-        <property name="appLog">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>
 
     <bean name="auditorium" class="com.epam.springapp.auditorium.AuditoriumServiceImpl">
         <property name="auditoriums" value="${auditorium.list}"/>
-        <property name="appLog">
+        <property name="appLogger">
             <ref bean="logging"/>
         </property>
     </bean>
