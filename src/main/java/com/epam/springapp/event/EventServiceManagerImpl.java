@@ -108,15 +108,16 @@ public class EventServiceManagerImpl implements EventServiceManager {
     }
 
     /**
-     * This method adds default Production events to App, called by addInitialUsersToApplication() from eventsData.xml
+     * This method adds default Production events to App, called by
+     * @link App.addInitialUsersToApplication() from eventsData.xml
      */
     public void addInitialEvents() { //
         eventData.forEach(eventsRow -> //
-        events.add(new Event( //
-                eventsRow.get(0), //
-                eventsRow.get(1), //
-                Integer.parseInt(eventsRow.get(2)), //
-                Rating.LOW //
-        )));
+                events.add(new Event( //
+                        eventsRow.get(0), //
+                        eventsRow.get(1), //
+                        Integer.parseInt(eventsRow.get(2)), //
+                        Rating.LOW //
+                )));
     }
 }

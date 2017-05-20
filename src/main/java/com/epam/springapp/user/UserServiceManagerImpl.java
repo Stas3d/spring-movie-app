@@ -47,28 +47,11 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //    @Autowired
 //    private JdbcOperations jdbcOperations;
 
-    // public static void setUserList(final List<User> userList) {
-    // UserServiceManagerImpl.userList = userList;
-    // }
-
-    // public void setTestUsers(final List testUsers) {
-    // this.testUsers = testUsers;
-    // }
-
-    // public static List<Ticket> getTickets() {
-    // return tickets;
-    // }
-
-    // public static void setTickets(final List<Ticket> tickets) {
-    // UserServiceManagerImpl.tickets = tickets;
-    // }
-
     public List<User> findAllUsers() {
         return userList;
     }
 
 
-    // TODO Should be redone to exclude void
     public void registerUser(final String userName,
                              final long userId,
                              final String userMail,
@@ -89,38 +72,6 @@ public class UserServiceManagerImpl implements UserServiceManager {
         }
         appLogger.logEvent(String.format(WRONG_MAIL, userMail));
     }
-
-//    public void registerUser(String userName, long userId, String userMail, String birthDate) {
-//        if (checkIfMailValid(userMail) && !checkIfUserExists(userMail)) {
-//            if (userList != null) {
-//                for (User user : userList) {
-//                    if (userId == user.getUserId()) {
-//                        appLogger.logEvent(String.format(EXISTING_USER, user));
-//                        return;
-//                    }
-//                }
-//                User newUser = new User(userId, userName, userMail, birthDate);
-//                userList.add(newUser);
-//                // int result = jdbcOperations.update("INSERT into USER(USERNAME,ID,USERMAIL,BIRTHDATE) VALUES
-//                // (?,?,?,?)",
-//                // userName, userId, userMail, birthDate);
-//            }
-//        }
-//        appLogger.logEvent(String.format(WRONG_MAIL, userMail));
-//    }
-
-//    public void removeUser(final long userId) {
-//        if (userList != null) {
-//            // jdbcOperations.update("DELETE FROM USER WHERE id =?", userId);
-//            for (User user : userList) {
-//                if (userId == user.getUserId()) {
-//                    userList.remove(user);
-//                    appLogger.logEvent(String.format(USER_WAS_REMOVED, user));
-//                    return;
-//                }
-//            }
-//        }
-//    }
 
     // TODO make this boolean
     public void removeUser(final long userId) {
@@ -146,17 +97,6 @@ public class UserServiceManagerImpl implements UserServiceManager {
             throw new NoUserException(String.format(CAN_NOT_FIND_USER, userId));
     }
 
-//    public User getUserByEmail(String mail) {
-//        if ((userList != null) && (mail != null)) {
-//            for (User user : userList) {
-//                if (mail.equals(user.getUserMail())) {
-//                    return user;
-//                }
-//            }
-//        }
-//        throw new NoUserException(String.format(CAN_NOT_FIND_USER, mail));
-//    }
-
     public User getUserByEmail(final String mail) {
         if ((userList != null) && (mail != null))
             return userList.stream()
@@ -181,34 +121,11 @@ public class UserServiceManagerImpl implements UserServiceManager {
             throw new NoUserException(NULL_USER);
     }
 
-//    public User getUserByName(final String name) {
-//        if ((userList != null) && (name != null)) {
-//            for (User user : userList) {
-//                if (name.equals(user.getUserName())) {
-//                    return user;
-//                }
-//            }
-//        }
-//        throw new NoUserException(String.format(CAN_NOT_FIND_USER, name));
-//    }
-
     public List<Ticket> getBookedTickets(final User user) {
         return tickets.stream()
                 .filter(ticket -> user.getUserId() == ticket.getUser().getUserId() )
                 .collect(Collectors.toList());
     }
-
-//    public List<Ticket> getBookedTickets(final User user) {
-//        List<Ticket> reservedTicketListCart = new ArrayList<>();
-//        if (userList != null && tickets != null) {
-//            for (Ticket ticket : tickets) {
-//                if (user.getUserId() == ticket.getUser().getUserId()) {
-//                    reservedTicketListCart.add(ticket);
-//                }
-//            }
-//        }
-//        return reservedTicketListCart;
-//    }
 
     @Deprecated
     public void showAllUsers() {
@@ -222,8 +139,6 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public boolean checkIfUserExists(final String name) {
-//        return userList.stream()
-//                .anyMatch(user -> userMail.equals(user.getUserMail()));
         return userList.stream()
                 .anyMatch(user -> name.equals(user.getUserName()));
     }
@@ -238,7 +153,4 @@ public class UserServiceManagerImpl implements UserServiceManager {
                 userDataRow.get(2), //
                 userDataRow.get(3))));
     }
-
-
-
 }

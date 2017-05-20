@@ -57,7 +57,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
     }
 
     /**
-     * The Event allready contains information about the data
+     * Event contains information about the data
      */
     public List<Ticket> getTicketsForEvent(final Event event, final Date date) {
         return tickets
@@ -67,7 +67,7 @@ public class BookingServiceManagerImpl implements BookingServiceManager {
                 .collect(Collectors.toList());
     }
 
-    public List<Ticket> getAllTickets(){
+    public List<Ticket> getAllTickets() {
         return tickets;
     }
 
