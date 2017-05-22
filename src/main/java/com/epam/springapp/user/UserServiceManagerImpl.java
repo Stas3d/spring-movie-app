@@ -15,6 +15,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Service("userService")
 public class UserServiceManagerImpl implements UserServiceManager {
 
@@ -34,7 +36,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
     @Getter
     @Setter
 //    @InjectInitialAppUsers
-    private static List<User> userList = new ArrayList<>();
+    private static List<User> users = new ArrayList<>();
 
     @Getter
     @Setter
@@ -48,16 +50,15 @@ public class UserServiceManagerImpl implements UserServiceManager {
 //    private JdbcOperations jdbcOperations;
 
     public List<User> findAllUsers() {
-        return userList;
+        return users;
     }
-
 
     public void registerUser(final String userName,
                              final long userId,
                              final String userMail,
                              final String birthDate) {
         if (checkIfMailValid(userMail) && !checkIfUserExists(userMail)) {
-            final boolean isExistingUser = userList
+            final boolean isExistingUser = users
                     .stream()
                     .anyMatch(user 
                             -> (userId == user.getUserId()));
@@ -66,29 +67,27 @@ public class UserServiceManagerImpl implements UserServiceManager {
                 return;
             }
             final User newUser = new User(userId, userName, userMail, birthDate);
-            userList.add(newUser);
+            users.add(newUser);
                 // int result = jdbcOperations.update("INSERT into USER(USERNAME,ID,USERMAIL,BIRTHDATE) VALUES (?,?,?,?)", userName, userId, userMail, birthDate);
 //            }
         }
         appLogger.logEvent(String.format(WRONG_MAIL, userMail));
     }
 
-    // TODO make this boolean
     public void removeUser(final long userId) {
-        if (userList != null) {
-            // jdbcOperations.update("DELETE FROM USER WHERE id =?", userId);
-            final User userToBeDeleted = userList.stream()
-                    .filter(user -> userId == user.getUserId())
-                    .findFirst()
-                    .get();
-            userList.remove(userToBeDeleted);
-            appLogger.logEvent(String.format(USER_WAS_REMOVED, userToBeDeleted));
-        }
+        checkNotNull(userId);
+        // jdbcOperations.update("DELETE FROM USER WHERE id =?", userId);
+        final User userToBeDeleted = users.stream()
+                .filter(user -> userId == user.getUserId())
+                .findFirst()
+                .get();
+        users.remove(userToBeDeleted);
+        appLogger.logEvent(String.format(USER_WAS_REMOVED, userToBeDeleted));
     }
 
     public User getUserById(final long userId) {
-        if (userList != null)
-            return userList.stream()
+        if (users != null)
+            return users.stream()
                     .filter(user -> userId == user.getUserId())
                     .findFirst()
                     .orElseThrow(
@@ -98,8 +97,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public User getUserByEmail(final String mail) {
-        if ((userList != null) && (mail != null))
-            return userList.stream()
+        if ((users != null) && (mail != null))
+            return users.stream()
                     .filter(m -> mail.equals(m.getUserMail()))
                     .findFirst()
                     .orElseThrow(
@@ -110,8 +109,8 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public User getUserByName(final String name) {
-        if ((userList != null) && (name != null))
-            return userList.stream()
+        if ((users != null) && (name != null))
+            return users.stream()
                     .filter(user -> name.equals(user.getUserName()))
                     .findFirst()
                     .orElseThrow(
@@ -129,7 +128,7 @@ public class UserServiceManagerImpl implements UserServiceManager {
 
     @Deprecated
     public void showAllUsers() {
-        userList.forEach(user -> appLogger.logEvent(user.toString()));
+        users.forEach(user -> appLogger.logEvent(user.toString()));
         appLogger.logEvent("\n");
     }
 
@@ -139,15 +138,15 @@ public class UserServiceManagerImpl implements UserServiceManager {
     }
 
     public boolean checkIfUserExists(final String name) {
-        return userList.stream()
+        return users.stream()
                 .anyMatch(user -> name.equals(user.getUserName()));
     }
 
     /**
-     * This method adds default Production userList to List<User> from usersData.xml {@see usersData.xml} <br>
+     * This method adds default Production users to List<User> from usersData.xml {@see usersData.xml} <br>
      */
     public void addInitialUsers() {
-        testUsers.forEach(userDataRow -> userList.add(new User( //
+        testUsers.forEach(userDataRow -> users.add(new User( //
                 Integer.parseInt(userDataRow.get(0)), //
                 userDataRow.get(1), //
                 userDataRow.get(2), //

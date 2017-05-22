@@ -170,6 +170,6 @@ public class UserServiceManagerTests {
         testUserData.add(new User(6, "Milena", "milena@mail.ru", "14.01.1980"));
         testUserData.add(new User(7, "Milana", "milana@mail.ru", "14.01.1980"));
         testUserData.add(new User(8, "Mimimi", "mimimi@mail.ru", "14.01.1980"));
-        UserServiceManagerImpl.setUserList(testUserData);
+        UserServiceManagerImpl.setUsers(testUserData);
     }
 }
